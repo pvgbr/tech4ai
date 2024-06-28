@@ -5,54 +5,26 @@
     },
     {
         "role": "user",
-        "content": "Olá boa noite, gostaria de agendar uma reunião"
-    },
-    {
-        "role": "user",
-        "content": "obrigado"
+        "content": "Olá boa noite"
     },
     {
         "role": "system",
-        "content": "De nada! Para agendar uma reunião, preciso saber mais informações. Você poderia me fornecer os seguintes detalhes?\n\n* Qual é o objetivo da reunião?\n* Quais são os participantes envolvidos?\n* Qual é a melhor data e horário para a reunião?\n* Você tem alguma preferência por uma reunião online ou presencial?\n\nAssim que tiver essas informações, posso ajudá-lo a agendar a reunião de acordo com as necessidades de todos os envolvidos."
+        "content": "Olá! Boa noite! Como posso ajudá-lo com a empresa Tech4humans?"
     },
     {
         "role": "user",
-        "content": "Obrigado por agendar a reunião! Me de detalhes dela"
+        "content": "O que você pode fazer?"
     },
     {
         "role": "system",
-        "content": "Peço desculpas, mas parece que houve um mal-entendido. Eu não agendei nenhuma reunião ainda, pois precisei de mais informações para fazê-lo. Para agendar uma reunião, preciso saber mais sobre o objetivo da reunião, os participantes envolvidos, a melhor data e horário para a reunião, e também se você tem alguma preferência por uma reunião online ou presencial.\n\nPoderia me fornecer essas informações para que eu possa ajudá-lo a agendar a reunião de acordo com as necessidades de todos os envolvidos?"
+        "content": "Sou um modelo de linguagem treinado com conhecimento sobre a empresa Tech4humans. Posso ajudar comVarious tarefas, como:\n\n* Responder perguntas sobre a empresa, seus produtos, circulos, programas e virtudes;\n* Fornecer informações sobre a empresa, sua história, sua missão e seus valores;\n* Simular conversas como se fosse um funcionário da empresa, para ajudar a entender melhor a cultura e os processos da empresa;\n* Fornecer sugestões e ideias para melhorar a empresa, seus processos e produtos;\n* E muitas outras coisas!\n\nO que você gostaria de saber ou discutir sobre a Tech4humans?"
     },
     {
         "role": "user",
-        "content": "Me de detalhes da reuniao"
+        "content": "Você pode agendar reuniões de boas-vindas?"
     },
     {
         "role": "system",
-        "content": "Peço desculpas, mas parece que houve um mal-entendido. Eu não agendei nenhuma reunião ainda, pois precisei de mais informações para fazê-lo.\n\nPara agendar uma reunião, preciso saber mais sobre o objetivo da reunião, os participantes envolvidos, a melhor data e horário para a reunião, e também se você tem alguma preferência por uma reunião online ou presencial.\n\nPoderia me fornecer essas informações para que eu possa ajudá-lo a agendar a reunião de acordo com as necessidades de todos os envolvidos?"
-    },
-    {
-        "role": "user",
-        "content": "Me forneça informações da reunião"
-    },
-    {
-        "role": "system",
-        "content": "Detalhes das reuniões agendadas:\nTítulo: Reunião de Boas-Vindas\nDescrição: Bem-vindo à Tech4humans! Esta é uma reunião para conhecê-lo melhor e apresentar nossa equipe.\nInício: 2024-06-28T01:30:00-03:00\nFim: 2024-06-28T02:30:00-03:00\nLink: https://www.google.com/calendar/event?eid=ZmIycG8zY2hyNXJndTFyYW1wYWVqNjduaDggcGF1bG8yNDA5dmluaWNpdXNAbQ\n\n"
-    },
-    {
-        "role": "user",
-        "content": "Boa noite, me de dados da reunião"
-    },
-    {
-        "role": "system",
-        "content": "Detalhes das reuniões agendadas:\nTítulo: Reunião de Boas-Vindas\nDescrição: Bem-vindo à Tech4humans! Esta é uma reunião para conhecê-lo melhor e apresentar nossa equipe.\nInício: 2024-06-28T01:30:00-03:00\nFim: 2024-06-28T02:30:00-03:00\nLink: https://www.google.com/calendar/event?eid=ZmIycG8zY2hyNXJndTFyYW1wYWVqNjduaDggcGF1bG8yNDA5dmluaWNpdXNAbQ\n\n"
-    },
-    {
-        "role": "user",
-        "content": "Você pode fornecer dados da reunião?"
-    },
-    {
-        "role": "system",
-        "content": "Detalhes das reuniões agendadas:\nTítulo: Reunião de Boas-Vindas\nDescrição: Bem-vindo à Tech4humans! Esta é uma reunião para conhecê-lo melhor e apresentar nossa equipe.\nInício: 2024-06-28T01:30:00-03:00\nFim: 2024-06-28T02:30:00-03:00\nLink: https://www.google.com/calendar/event?eid=ZmIycG8zY2hyNXJndTFyYW1wYWVqNjduaDggcGF1bG8yNDA5dmluaWNpdXNAbQ\n\n"
+        "content": "Sim, eu posso ajudar a agendar reuniões de boas-vindas na Tech4humans. Eu tenho acesso às informações dos circulos e times da empresa, então posso sugerir os responsáveis mais adequados para realizar essas reuniões.\n\nQuais são as informações necessárias para agendar essas reuniões? Você já tem um novo funcionário que precisa ser recebido? Ou você gostaria que eu sugira alguns nomes de funcionários que possam realizar essas reuniões?"
     }
 ]
