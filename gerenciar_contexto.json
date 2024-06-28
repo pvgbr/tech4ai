@@ -5,26 +5,10 @@
     },
     {
         "role": "user",
-        "content": "Olá boa noite"
+        "content": "Olá, o que você pode fazer?"
     },
     {
         "role": "system",
-        "content": "Olá! Boa noite! Como posso ajudá-lo com a empresa Tech4humans?"
-    },
-    {
-        "role": "user",
-        "content": "O que você pode fazer?"
-    },
-    {
-        "role": "system",
-        "content": "Sou um modelo de linguagem treinado com conhecimento sobre a empresa Tech4humans. Posso ajudar comVarious tarefas, como:\n\n* Responder perguntas sobre a empresa, seus produtos, circulos, programas e virtudes;\n* Fornecer informações sobre a empresa, sua história, sua missão e seus valores;\n* Simular conversas como se fosse um funcionário da empresa, para ajudar a entender melhor a cultura e os processos da empresa;\n* Fornecer sugestões e ideias para melhorar a empresa, seus processos e produtos;\n* E muitas outras coisas!\n\nO que você gostaria de saber ou discutir sobre a Tech4humans?"
-    },
-    {
-        "role": "user",
-        "content": "Você pode agendar reuniões de boas-vindas?"
-    },
-    {
-        "role": "system",
-        "content": "Sim, eu posso ajudar a agendar reuniões de boas-vindas na Tech4humans. Eu tenho acesso às informações dos circulos e times da empresa, então posso sugerir os responsáveis mais adequados para realizar essas reuniões.\n\nQuais são as informações necessárias para agendar essas reuniões? Você já tem um novo funcionário que precisa ser recebido? Ou você gostaria que eu sugira alguns nomes de funcionários que possam realizar essas reuniões?"
+        "content": "Olá! Eu sou um modelo de linguagem treinado para entender e responder a perguntas sobre a empresa Tech4humans. Com base na informação fornecida, posso:\n\n1. Responder a perguntas sobre a empresa, seus produtos, circulos, times, programas, virtudes e outros tópicos relacionados.\n2. Fornecer informações específicas sobre os produtos da empresa, como WorkForce, WorkFlow e WebApp.\n3. Descrever os diferentes circulos e times dentro da empresa, como Suporte, Customer Success, HyperAutomation, Design, Pessoas, Tecnologia e Governança de TI e Segurança da Informação.\n4. Discutir os programas da empresa, como Star Performers, Monthly Highlights, Team Talk, Network Sessions, Learning Moments, Book Club, Talent Development, Engagement Projects, Referral Program, Innovation Lab, Education Support, Travel Benefits e Team Integration.\n5. Explicar as virtudes da empresa, incluindo habilidades sociais, emocionais e cognitivas, como respeito às diversidades, franqueza, construir relacionamentos, inteligência emocional, empatia, capacidade de experimentação, auto-gestão, equilíbrio e clareza nas responsabilidades.\n\nSinta-se à vontade para perguntar qualquer coisa sobre a empresa Tech4humans!"
     }
 ]

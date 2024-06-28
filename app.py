@@ -1,3 +1,4 @@
+
 import json
 import datetime
 from groq import Groq
@@ -6,8 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 
-api_key = "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"
-client = Groq(api_key=api_key)
+client = Groq(api_key="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")
 
 with open('base_de_dados.json', 'r') as f:
     base_de_dados = json.load(f)
