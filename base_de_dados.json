@@ -1,0 +1,217 @@
+{
+  "empresa": {
+        "nome": "Tech4humans",
+        "fundacao": "2020",
+        "localizacao": "São Paulo, SP",
+        "sobre": "Somos uma startup inovadora com duas áreas de negócios: SaaS e AIaaS. No SaaS, oferecemos soluções avançadas para a hyperautomação de atendimento, facilitando a gestão, automação e acompanhamento de solicitações. No AIaaS, nossa plataforma Tech4.ai capacita empresas a construir e implementar soluções de inteligência artificial com tecnologias open source, garantindo agilidade, governança e alto desempenho.",
+        "produtos": [
+            "WorkForce",
+            "WorkFlow",
+            "WebApp"
+        ],
+        "circulos": [
+            {
+                "nome": "Suporte",
+                "times": [
+                    {
+                        "nome": "Suporte",
+                        "responsabilidades": "O Time de Suporte de nossa organização desempenha um papel essencial, garantindo que todas as questões técnicas e demandas dos clientes sejam atendidas dentro do tempo acordado. Eles lidam diretamente com qualquer solicitação aberta, seja resolvendo o problema diretamente ou envolvendo outras equipes quando necessário.Quando ocorrem falhas nos sistemas, eles organizam sessões de análise crítica, iniciando a comunicação com os clientes em colaboração com a equipe técnica, coletando evidências de problemas e iniciando procedimentos de emergência para minimizar o impacto e permitir a retomada da operacionalidade.Essa equipe mantém-se atualizada com todos os produtos para criar documentações técnicas e conduzir treinamentos, enquanto busca feedback contínuo dos clientes em todas as etapas do processo para garantir uma experiência de alta qualidade. Eles também são responsáveis pela organização e operação de ferramentas de gestão de tarefas, bem como pela utilização de ferramentas de solicitações de clientes.Este time é responsável pela criação de diversos tipos de documentações, incluindo relatórios de interrupção de operações, materiais de treinamento e planos de ação. Durante e após qualquer incidente, eles mantêm todos informados por meio de atualizações regulares e acionam as equipes e indivíduos necessários para resolver o problema."
+                    }
+                ]
+            },
+            {
+                "nome": "Customer Success",
+                "times": [
+                    {
+                        "nome": "Customer Success",
+                        "responsabilidades": "O Time de Customer Success desempenha um papel crucial no suporte e acompanhamento de projetos de clientes desde o início até a conclusão. Eles guiam os clientes através do processo de integração em novos projetos, garantindo uma transição perfeita e segura. A equipe também é responsável por testar e validar funcionalidades antes de serem entregues, para garantir que o produto final esteja em conformidade com as expectativas do cliente. A comunicação é um elemento-chave em suas atividades diárias, que inclui a coleta e apresentação de informações, além do envio de relatórios de status aos clientes com base nos alinhamentos realizados. Após a conclusão de cada projeto, o time de CS avalia a satisfação do cliente, coletando feedbacks valiosos para futuras melhorias. Um aspecto crucial de seu trabalho é fornecer treinamento para os clientes, garantindo que os usuários finais compreendam bem nossos produtos. Em suma, o time atua como uma ponte entre a empresa e o cliente, facilitando a comunicação, o aprendizado e garantindo a satisfação contínua do cliente."
+                    }
+                ]
+            },
+            {
+              "nome": "HyperAutomation",
+              "times": [
+                  {
+                      "nome": "HyperAutomation",
+                      "responsabilidades": "O time de HyperAutomation Experience na nossa organização desempenha um papel fundamental no avanço das operações de automação. Com sua expertise, eles facilitam a implementação de Provas de Conceito (POC) para potenciais parceiros, desenvolvem projetos personalizados e fornecem consultoria especializada em HyperAutomation. O valor real e o potencial de eficiência que a automação pode trazer para as operações de negócios são demonstrados através do seu trabalho. Eles se dedicam a construir propostas comerciais robustas e fornecer suporte técnico abrangente para o uso de HyperAutomation em POCs e projetos. A equipe utiliza suas habilidades para analisar processos existentes e avaliar o potencial de retorno sobre investimento. Eles têm um papel crucial na fase de Avaliação com potenciais parceiros comerciais. A dedicação da equipe à experiência do cliente é evidenciada em suas atividades diárias e em sua abordagem proativa para conduzir pesquisas de satisfação. Isso garante que os serviços fornecidos estão em conformidade com as expectativas dos clientes."
+                  },
+                  {
+                    "nome": "Account Manager",
+                    "responsabilidades": "O time de AM tem o papel crucial de administrar as relações com os parceiros, com foco na garantia da satisfação e lealdade. Eles são o principal elo de ligação entre a organização e os clientes, dedicando-se a compreender suas necessidades, resolver desafios e introduzir soluções inovadoras. Eles também acompanham o desempenho das contas, assegurando que os objetivos sejam cumpridos e que o valor proporcionado aos parceiros seja otimizado. Além disso, eles também negociam e renovam contratos. Em suma, o time de Account Manager é vital para a geração de uma receita contínua e para apoiar o crescimento sustentável da organização."
+                  }
+              ]
+            },
+            {
+              "nome": "Design",
+              "times": [
+                  {
+                    "nome": "Design",
+                    "responsabilidades": "Responsáveis por liderar o processo de design desde a concepção até a entrega final, eles garantem que cada etapa seja cuidadosamente planejada e executada. Este time colabora estreitamente com outros times para definir requisitos e prazos, utilizando metodologias ágeis para aprimorar continuamente os processos. Com foco em entender as necessidades dos usuários, o Time de Design conduz pesquisas e análises para desenvolver soluções inovadoras e testar sua usabilidade. A colaboração é essencial, facilitando reuniões com equipes multidisciplinares para validar propostas e compartilhar conhecimento. Além disso, contribuem para a criação de uma experiência consistente através de diretrizes de design, garantindo eficiência e qualidade em todas as suas entregas. Mantendo-se atualizados sobre as últimas tendências e práticas de mercado, realizam análises comparativas para identificar oportunidades de melhorias. Por fim, documentam e comunicam os sucessos e aprendizados do projeto, evidenciando os avanços alcançados nas soluções desenvolvidas."
+                  }
+              ]
+            },
+            {
+              "nome": "Pessoas",
+              "times": [
+                  {
+                    "nome": "RH/PESSOAS",
+                    "responsabilidades": "Este departamento desempenha funções cruciais para as organizações, que vão desde a contratação até a rescisão de funcionários. Eles conduzem os processos de admissão e demissão em todas as suas etapas, abordando aspectos como contratos, benefícios e saúde. O departamento de RH garante que todos os detalhes dos benefícios, tais como benefícios alimentares e de refeição, estejam corretamente geridos, além de assegurar que as recompensas de programas oficiais da organização sejam adequadamente entregues. Eles também são responsáveis pela execução do fechamento da folha de pagamento, assegurando precisão e conformidade com todos os impostos e valores corretos. A gestão financeira é outro grande campo de responsabilidade deste departamento, que inclui a manipulação e reconciliação de contas direcionadas para demandas diárias, verificação de notas fiscais e compras, e gestão de reembolsos. Além disso, qualquer organização necessária para viagens ou eventos corporativos é coordenada e gerida pelo departamento de RH. Além das tarefas rotineiras, o departamento busca constantemente inovar, introduzindo novas ferramentas que aprimorem a experiência de trabalho na organização. Eles também organizam atividades de integração e desenvolvimento, realizam pesquisas de satisfação e planejam celebrações internas, visando melhorar continuamente o ambiente organizacional."
+                  },
+                  {
+                    "nome": "Social",
+                    "responsabilidades": "O Time de Social é crucial na expansão e melhoria da presença online da organização. Eles são encarregados de criar e administrar de maneira eficaz campanhas voltadas para a atração de potenciais clientes, além de manter as plataformas de mídia social da organização ativas com postagens temáticas. Isso garante uma comunicação constante e relevante com o público de interesse. Este time está sempre buscando novos conhecimentos, com um foco especial em tecnologias emergentes, como a inteligência artificial. Seu objetivo é melhorar a eficiência e reduzir a dependência de especialistas, aumentando a produtividade do time. Por fim, o Time de Digital Outreach está constantemente avaliando e implementando soluções de mercado que promovam a qualidade e a eficiência do seu trabalho."
+                  }
+              ]
+            },
+            {
+              "nome": "Tecnologia",
+              "times": [
+                  {
+                    "nome": "BI",
+                    "responsabilidades": "O Time de BI é fundamental na gestão analítica e de bancos de dados da organização. Esta equipe especializada é encarregada de desenvolver e gerenciar consultas personalizadas e diversos relatórios, com foco constante na inclusão de dados relevantes e na rápida solução de possíveis problemas. Eles realizam validações de dados precisas e detalhadas para evitar inconsistências e assegurar a precisão de todas as informações fornecidas. Esta equipe também é encarregada de estabelecer e atualizar a arquitetura de dados, monitorando continuamente para assegurar que as tabelas e 'views' materializadas estejam sempre atualizadas. Seu trabalho inclui a criação, atualização e supervisão da 'pipeline' de dados, garantindo um fluxo contínuo e preciso de informações em toda a organização. Uma de suas responsabilidades críticas é a extração de informações diretamente do banco de dados quando não estão disponíveis nos dashboards. O Time de BI colabora estreitamente com as equipes de Suporte e Customer Success para responder perguntas técnicas e ajudar clientes e usuários a entender os dados. Eles fornecem atualizações mensais internas e realizam treinamentos sobre dashboards e relatórios, além de criar e atualizar documentações necessárias para novas ferramentas e dashboards. Isso permite que outras equipes da organização entendam e usem adequadamente esses recursos. Eles também colaboram com outras equipes para desenvolver relatórios e análises essenciais para suas operações diárias. Por fim, o Time de BI é responsável por escrever notebooks de ingestão e atualização de dados em uma ferramenta de processamento de dados essencial usada pela organização."
+                  },
+                  {
+                    "nome": "IAG",
+                    "responsabilidades": "O Time de IAG é a força motriz para a incorporação de novas tecnologias em toda a organização. Eles facilitam a adoção de ferramentas tecnológicas avançadas, impulsionando a aprendizagem e o crescimento contínuo. Este time é fundamental na criação de colaborações e programas que aproveitam a tecnologia emergente, além de explorar oportunidades para aplicar essas tecnologias em vários projetos. No desenvolvimento, o time de IAG abrange todos os aspectos da plataforma tecnológica da empresa, incluindo arquitetura, mecanismos de processamento e modelos tecnológicos personalizados. Eles estão envolvidos no desenvolvimento e supervisão de projetos inovadores, aderindo às melhores práticas de operações de desenvolvimento. Além disso, o time é essencial na orientação e transferência de conhecimento para os novos integrantes da equipe, assegurando que todos estejam em dia com as mais recentes tendências e práticas tecnológicas."
+                  },
+                  {
+                    "nome": "Desenvolvimento de Produtos",
+                    "responsabilidades": "O Time de produtos é fundamental para assegurar a excelência, segurança e eficácia dos nossos produtos - Orion, Pulsar e Quantum. O Orion é a espinha dorsal das nossas automações, enquanto o Pulsar e Quantum são voltados para o atendimento ao cliente e a integração das operações dos nossos clientes. Este time tem a responsabilidade de identificar potenciais riscos nos projetos, estruturar os testes necessários para mitigá-los e decidir quais processos devem ser automatizados. Eles realizam tanto testes manuais quanto automatizados para assegurar a qualidade do produto. Além disso, o time desenha arquiteturas de sistemas, propõe soluções para desafios internos e externos, acompanha a direção de cada projeto e auxilia na evolução das competências técnicas da equipe. No desenvolvimento, eles programam o backend dos formulários, fluxos de automação e modelos de comunicação, além de conduzir a homologação interna e externa para garantir a qualidade do produto final. O time utiliza ferramentas como JIRA e Qase para documentação e gerenciamento de testes, buscando constantemente aprimorar a qualidade dos nossos produtos. Em resumo, são os defensores da excelência técnica e da satisfação do cliente, garantindo que nossos produtos atendem aos mais altos padrões de qualidade e segurança."
+                  },
+                  {
+                    "nome": "Automação de Processos",
+                    "responsabilidades": "Este time é responsável por automatizar e otimizar processos, visando sempre a eficiência e a qualidade. Trabalham diretamente com os clientes para entender suas necessidades e, com base nisso, avaliam e sugerem as soluções de automação mais adequadas, evitando dependências de desenvolvimento sempre que possível. A equipe organiza demandas por prioridade e documenta as soluções para os desenvolvedores. Quando necessário, eles próprios desenvolvem formulários e fluxos. Também são responsáveis pelo treinamento de novos membros da equipe, garantindo que todos estejam alinhados com os processos. Durante todo o ciclo do projeto, desde a coleta de informações até o acompanhamento pós-deploy, a equipe assegura o sucesso da automação. Produzem materiais de sucesso, participam do onboarding de novos colaboradores e clientes e realizam auditorias de segurança da informação. Em suma, são essenciais para a eficácia operacional e a entrega de valor aos clientes, quando envolve a automação de formulários."
+                  }
+              ]
+            },
+            {
+              "nome": "Governança de TI e Segurança da informação",
+              "times": [
+                  {
+                    "nome": "Governança",
+                    "responsabilidades": "Esse time busca a melhoria contínua dos processos tecnológicos e operacionais. Eles são encarregados de planejar, atualizar e otimizar os processos de Integração Contínua e Entrega Contínua (CI/CD) para todos os produtos e serviços da organização, com o objetivo de maximizar a eficiência e a qualidade. Este departamento trabalha ativamente para identificar e resolver gargalos, introduzindo novas tecnologias para aprimorar processos existentes. Eles mantêm uma abordagem proativa para a gestão de tecnologias em toda a organização, garantindo que todas as ferramentas corporativas sejam utilizadas de forma eficaz. Com uma visão analítica, a equipe de Governança tem a capacidade de identificar oportunidades de melhoria nos processos internos e avaliar a satisfação dos funcionários em cada programa institucional. Estão sempre prontos para resolver problemas e comunicar sugestões de aprimoramento para as partes interessadas. Um dos principais papéis do time de Governança está ligado à conformidade com as normas ISO. Eles trabalham de forma diligente para assegurar a aplicação dos requisitos das certificações, mantendo todos os documentos necessários atualizados e divulgando as responsabilidades internamente. Em resumo, eles são responsáveis por otimizar o ciclo de vida de desenvolvimento de software, garantindo que os processos sejam ágeis, seguros e eficientes."
+                  }
+              ]
+            }
+        ],
+        "programas": [
+          {
+            "programa": "Star Performers",
+            "descricao": "Este programa reconhece os funcionários de alto desempenho na empresa."
+          },
+          {
+            "programa": "Monthly Highlights",
+            "descricao": "Este programa destaca as atividades realizadas por cada departamento no mês passado."
+          },
+          {
+            "programa": "Team Talk",
+            "descricao": "Este é um podcast apresentado por funcionários da empresa, discutindo tópicos relevantes e compartilhando insights."
+          },
+          {
+            "programa": "Network Sessions",
+            "descricao": "Este programa promove o networking entre os funcionários em torno de temas pré-definidos."
+          },
+          {
+            "programa": "Learning Moments",
+            "descricao": "Este programa apresenta palestras e workshops com especialistas externos para promover o aprendizado contínuo."
+          },
+          {
+            "programa": "Book Club",
+            "descricao": "Este é um programa de leitura onde os funcionários compartilham conhecimentos e aprendem uns com os outros."
+          },
+          {
+            "programa": "Talent Development",
+            "descricao": "Este programa visa o desenvolvimento comportamental dos funcionários."
+          },
+          {
+            "programa": "Engagement Projects",
+            "descricao": "Estes são projetos criados para aumentar o engajamento dos funcionários, incluindo jogos e atividades de produtividade."
+          },
+          {
+            "programa": "Referral Program",
+            "descricao": "Este programa oferece uma recompensa aos funcionários que indicam candidatos bem-sucedidos para vagas na empresa."
+          },
+          {
+            "programa": "Innovation Lab",
+            "descricao": "Este é um espaço para a criação de projetos que utilizam Inteligência Artificial."
+          },
+          {
+            "programa": "Education Support",
+            "descricao": "Este programa oferece incentivos para cursos, treinamentos e livros."
+          },
+          {
+            "programa": "Travel Benefits",
+            "descricao": "Este é um programa de benefícios de viagem que oferece descontos significativos e um orçamento para viagens, pago pela empresa."
+          },
+          {
+            "programa": "Team Integration",
+            "descricao": "Este é um evento de integração semestral para todos os times da empresa."
+          }
+        ],
+        "virtudes": [
+          {
+              "pilar": "Habilidades Sociais",
+              "topicos": [
+                  {
+                      "nome": "Respeito às diversidades",
+                      "descricao": "Valorizar a pessoa, Aprender com \"tribos\", Rejeitar a discriminação e o preconceito."
+                  },
+                  {
+                      "nome": "Franqueza",
+                      "descricao": "Se expressar sem medo, Coerência nas palavras e atitudes, Escolher momento e as palavras certas."
+                  },
+                  {
+                      "nome": "Construir Relacionamentos",
+                      "descricao": "Networking, Comunicação efetiva, Ser colaborativo."
+                  }
+              ]
+          },
+          {
+              "pilar": "Habilidades Emocionais",
+              "topicos": [
+                  {
+                      "nome": "Inteligência Emocional",
+                      "descricao": "Autocontrole, Autoconhecimento, Conhecimento emocional dos outros, Solucionador de problemas."
+                  },
+                  {
+                      "nome": "Empatia",
+                      "descricao": "Se colocar no lugar do outro, Ação compassiva, Escuta ativa."
+                  }
+              ]
+          },
+          {
+            "pilar": "Habilidades Cognitivas",
+            "topicos": [
+                {
+                    "nome": "Assumir os Erros",
+                    "descricao": "Reconhecimento do erro, Aprendizado e melhoria, Corrigir rápido."
+                },
+                {
+                    "nome": "Adaptabilidade",
+                    "descricao": "Flexibilidade, Abertura ao aprendizado, Pensamento criativo."
+                },
+                {
+                    "nome": "Capacidade de Experimentação",
+                    "descricao": "Curiosidade, Teste de hipóteses, Assumir riscos calculados."
+                },
+                {
+                    "nome": "Auto Gestão",
+                    "descricao": "Definir metas, Gerir o tempo, Saber priorizar."
+                },
+                {
+                    "nome": "Equilíbrio",
+                    "descricao": "Esclarecer limites, Definir prioridades, Criar momentos de descanso e lazer."
+                },
+                {
+                    "nome": "Clareza nas Responsabilidades",
+                    "descricao": "Alinhamento de expectativas, Busca feedback."
+                },
+                {
+                    "nome": "Qualidade no Trabalho",
+                    "descricao": "Cumprimento do processo, Qualidade de trabalho, Precisão e atenção aos detalhes."
+                }
+            ]
+        }
+      ]
+  }
+}

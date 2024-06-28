@@ -1,0 +1,35 @@
+[
+    {
+        "kind": "calendar#event",
+        "etag": "\"3439095703530000\"",
+        "id": "fb2po3chr5rgu1rampaej67nh8",
+        "status": "confirmed",
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZmIycG8zY2hyNXJndTFyYW1wYWVqNjduaDggcGF1bG8yNDA5dmluaWNpdXNAbQ",
+        "created": "2024-06-28T04:10:51.000Z",
+        "updated": "2024-06-28T04:10:51.765Z",
+        "summary": "Reunião de Boas-Vindas",
+        "description": "Bem-vindo à Tech4humans! Esta é uma reunião para conhecê-lo melhor e apresentar nossa equipe.",
+        "creator": {
+            "email": "paulo2409vinicius@gmail.com",
+            "self": true
+        },
+        "organizer": {
+            "email": "paulo2409vinicius@gmail.com",
+            "self": true
+        },
+        "start": {
+            "dateTime": "2024-06-28T01:30:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "end": {
+            "dateTime": "2024-06-28T02:30:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "iCalUID": "fb2po3chr5rgu1rampaej67nh8@google.com",
+        "sequence": 0,
+        "reminders": {
+            "useDefault": true
+        },
+        "eventType": "default"
+    }
+]
