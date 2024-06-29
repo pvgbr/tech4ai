@@ -1,4 +1,3 @@
-
 import json
 import datetime
 from groq import Groq
@@ -6,6 +5,12 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
+from flask import Flask, request, jsonify, send_from_directory, session
+from markupsafe import escape, Markup
+import re
+
+app = Flask(__name__, static_folder='web')
+app.secret_key = 'tech4ai'
 
 client = Groq(api_key="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")
 
@@ -54,7 +59,7 @@ def resumir_dados(dados):
 
 resumo_base_de_dados = resumir_dados(base_de_dados)
 
-def agendar_reuniao_boas_vindas():
+def agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao):
     # Config Google Calendar
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     creds = None
@@ -68,10 +73,6 @@ def agendar_reuniao_boas_vindas():
             creds = flow.run_local_server(port=0)
     service = build('calendar', 'v3', credentials=creds)
 
-    # Perguntar a data e hora da reunião ao usuário
-    data_reuniao = input("Perfeito. Vamos agendar sua reunião de boas-vindas! \nPor favor, insira a data da reunião (DD/MM): ")
-    hora_reuniao = input("Por favor, insira a hora de início da reunião (HH:MM, 24h): ")
-    
     # Converter a data para (AAAA-MM-DD)
     dia, mes = data_reuniao.split('/')
     ano = datetime.datetime.now().year
@@ -97,8 +98,7 @@ def agendar_reuniao_boas_vindas():
         },
     }
     evento = service.events().insert(calendarId='primary', body=evento).execute()
-    print(f"Reunião agendada com sucesso! Acesse o Google Calendar para mais informações: {evento.get('htmlLink')}")
-    return evento 
+    return evento.get('htmlLink')
 
 def carregar_historico():
     return [
@@ -127,46 +127,38 @@ def salvar_reunioes(reunioes):
     with open('reunioes_agendadas.json', 'w') as f:
         json.dump(reunioes, f, ensure_ascii=False, indent=4)
 
-def chat():
-    print("\nOlá! Eu sou a Tech4AI, sua assistente virtual.")
-    print("Eu posso ajudar com as seguintes funções:")
-    print("- Responder perguntas sobre a Tech4humans")
-    print("- Agendar reuniões de boas-vindas")
-    print("Como posso ajudar você hoje?\n")
-    
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
+
+@app.route('/chat', methods=['POST'])
+def chat_endpoint():
+    user_message = request.json.get('message')
     historico_mensagens = carregar_historico()
-    reunioes_agendadas = carregar_reunioes()
-    
-    evento_agendado = None  # Variável para armazenar detalhes do evento agendado
-    
-    while True:
-        user_message = input("Você: ")
-        if user_message.lower() in ["sair", "exit", "quit"]:
-            print("Encerrando o chat.")
-            salvar_historico(historico_mensagens)
-            salvar_reunioes(reunioes_agendadas)
-            break
+    historico_mensagens.append({"role": "user", "content": user_message})
 
-        # Adicionar mensagem do usuário ao histórico
-        historico_mensagens.append({
-            "role": "user",
-            "content": user_message
-        })
-
+    response = ""
+    
+    if 'agendar_reuniao' in session:
+        if 'data_reuniao' not in session:
+            session['data_reuniao'] = user_message
+            response = "Por favor, forneça a hora da reunião (HH:MM)."
+        elif 'hora_reuniao' not in session:
+            session['hora_reuniao'] = user_message
+            link_reuniao = agendar_reuniao_boas_vindas(session['data_reuniao'], session['hora_reuniao'])
+            response = f"Reunião agendada com sucesso! Acesse o Google Calendar para mais informações: {link_reuniao}"
+            session.pop('agendar_reuniao')
+            session.pop('data_reuniao')
+            session.pop('hora_reuniao')
+    else:
         if any(keyword in user_message.lower() for keyword in ["agendar reunião", "agendar reuniao", "marcar reunião", "marcar reuniao", "reunião boas-vindas", "reunião boas vindas", "gostaria de agendar", "gostaria de marcar", "agendar uma reunião", "marcar uma reunião"]):
-            evento_agendado = agendar_reuniao_boas_vindas()
-            reunioes_agendadas.append(evento_agendado)
-            continue
-
-        if any(keyword in user_message.lower() for keyword in ["dados da reunião", "detalhes da reunião", "informações da reunião", "reunião agendada"]):
-            if reunioes_agendadas:
-                response = "Detalhes das reuniões agendadas:\n"
-                for evento in reunioes_agendadas:
-                    response += f"Título: {evento['summary']}\nDescrição: {evento['description']}\nInício: {evento['start']['dateTime']}\nFim: {evento['end']['dateTime']}\nLink: {evento.get('htmlLink')}\n\n"
-            else:
-                response = "Nenhuma reunião foi agendada ainda."
+            session['agendar_reuniao'] = True
+            response = "Por favor, forneça a data da reunião (DD/MM)."
         else:
-            response = ""
             completion = client.chat.completions.create(
                 model="llama3-70b-8192",
                 messages=historico_mensagens,
@@ -178,16 +170,27 @@ def chat():
             )
             for chunk in completion:
                 response += chunk.choices[0].delta.content or ""
-        
-        historico_mensagens.append({
-            "role": "system",
-            "content": response
-        })
-        
-        print(f"Tech4AI: {response}")
 
-        salvar_historico(historico_mensagens)
-        salvar_reunioes(reunioes_agendadas)
+    historico_mensagens.append({"role": "system", "content": response})
+    salvar_historico(historico_mensagens)
+    
+    # Escapar o conteúdo HTML
+    response = escape(response)
+    
+    # Substituir as quebras de linha
+    response = response.replace('\n', Markup('<br>'))
+    
+    # Substituir **texto** por <b>texto</b>
+    response = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', response)
+    
+    # Substituir *texto* por <b>texto</b> (para suportar a formatação original)
+    response = re.sub(r'\*(.*?)\*', r'<b>\1</b>', response)
+
+    response = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', response)
+    
+    response = Markup(response)
+    
+    return jsonify({"response": str(response)})
 
 if __name__ == "__main__":
-    chat()
+    app.run(debug=True)

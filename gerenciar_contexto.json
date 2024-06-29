@@ -5,10 +5,10 @@
     },
     {
         "role": "user",
-        "content": "Olá, o que você pode fazer?"
+        "content": "Estou bem também!"
     },
     {
         "role": "system",
-        "content": "Olá! Eu sou um modelo de linguagem treinado para entender e responder a perguntas sobre a empresa Tech4humans. Com base na informação fornecida, posso:\n\n1. Responder a perguntas sobre a empresa, seus produtos, circulos, times, programas, virtudes e outros tópicos relacionados.\n2. Fornecer informações específicas sobre os produtos da empresa, como WorkForce, WorkFlow e WebApp.\n3. Descrever os diferentes circulos e times dentro da empresa, como Suporte, Customer Success, HyperAutomation, Design, Pessoas, Tecnologia e Governança de TI e Segurança da Informação.\n4. Discutir os programas da empresa, como Star Performers, Monthly Highlights, Team Talk, Network Sessions, Learning Moments, Book Club, Talent Development, Engagement Projects, Referral Program, Innovation Lab, Education Support, Travel Benefits e Team Integration.\n5. Explicar as virtudes da empresa, incluindo habilidades sociais, emocionais e cognitivas, como respeito às diversidades, franqueza, construir relacionamentos, inteligência emocional, empatia, capacidade de experimentação, auto-gestão, equilíbrio e clareza nas responsabilidades.\n\nSinta-se à vontade para perguntar qualquer coisa sobre a empresa Tech4humans!"
+        "content": "Entendi! Você está se dirigindo a uma conversa informal e não tem relação com a empresa Tech4humans. Se você precisar de ajuda ou tiver alguma dúvida, estou aqui para ajudar."
     }
 ]
