@@ -35,12 +35,12 @@ function displayWelcomeMessage() {
     const chatMessages = document.getElementById('chat-messages');
     const botMessage = `
         <div class="bot-message">
-            <p>Olá! Seja bem-vindo(a) à Tech4humans!<br>
-            Sou a Tech4AI e estou aqui para te ajudar com sua adaptação na empresa.<br>
+            <p>Olá! Seja bem-vindo(a) à Tech4Humans!<br><br>
+            Sou a Tech4.AI e estou aqui para te ajudar com sua adaptação na empresa.<br>
             Abaixo estão as funcionalidades que posso oferecer:<br>
-            - Esclarecer dúvidas sobre a empresa<br>
-            - Agendar sua reunião de boas-vindas<br>
-            - Fornecer tutoriais das plataformas que usamos internamente<br><br>
+            - Esclarecer dúvidas sobre a empresa;<br>
+            - Agendar sua reunião de boas-vindas;<br>
+            - Fornecer tutoriais das plataformas internas, como Github, Vscode, Jira e Discord.<br><br>
             Como posso ajudar você hoje?</p>
         </div>
     `;

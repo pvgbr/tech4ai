@@ -76,12 +76,14 @@ body {
   max-width: 80%;
   word-wrap: break-word;
   font-size: 14px;
+  width: fit-content; /* Adicionado para tornar o tamanho adaptativo */
 }
 
 .message.user {
   background-color: #dcf8c6;
   align-self: flex-end;
   text-align: right;
+  margin-left: auto; /* Adicionado para alinhar à direita */
 }
 
 .message.tech4ai {
