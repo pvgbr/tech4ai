@@ -1,5 +1,8 @@
 import json
 import datetime
+import re
+import os
+import spacy
 from groq import Groq
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import Flow
@@ -7,9 +10,6 @@ from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template
 from markupsafe import escape, Markup
-import re
-import os
-import pickle
 
 app = Flask(__name__, static_folder='web', template_folder='web')
 app.secret_key = 'tech4ai'
@@ -207,7 +207,7 @@ def salvar_reunioes(reunioes):
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
 
-def truncar_historico(historico, max_tokens=2048):
+def truncar_historico(historico, max_tokens=1024):
     total_tokens = 0
     truncado = []
     
@@ -220,22 +220,32 @@ def truncar_historico(historico, max_tokens=2048):
     
     return truncado
 
+nlp = spacy.load("pt_core_news_sm")
 @app.route('/chat', methods=['POST'])
 def chat_endpoint():
     user_message = request.json.get('message')
     historico_mensagens = carregar_historico()
     
     historico_mensagens.append({"role": "user", "content": user_message})
-
-    # Adicionar informações da empresa ao histórico de mensagens
     historico_mensagens.append({"role": "system", "content": json.dumps(resumo_base_de_dados)})
-
-    # Truncar o histórico de mensagens para evitar limite de tokens
     historico_mensagens = truncar_historico(historico_mensagens)
 
     response = ""
-    
-    if 'agendar_reuniao' in session:
+
+    # Processar a mensagem do usuário
+    doc = nlp(user_message)
+    empresas_mencionadas = [ent.text for ent in doc.ents if ent.label_ == "ORG"]
+
+    # Verificações de segurança e conteúdo
+    if empresas_mencionadas:
+        response = "Desculpe, eu só posso fornecer informações sobre a Tech4Humans."
+    elif re.search(r'\b(discurso de ódio|insultos|linguagem ofensiva)\b', user_message, re.IGNORECASE):
+        response = "Desculpe, não tolero discurso de ódio ou linguagem ofensiva."
+    elif re.search(r'\b(informação pessoal|dados pessoais)\b', user_message, re.IGNORECASE):
+        response = "Desculpe, não posso fornecer informações pessoais."
+    elif re.search(r'[\{\}\[\]]', user_message):  # Verificação para injeções
+        response = "Desculpe, a requisição contém caracteres não permitidos."
+    elif 'agendar_reuniao' in session:
         if 'data_reuniao' not in session:
             if not re.match(r'^\d{2}/\d{2}$', user_message):
                 response = "Data inválida. Por favor, forneça a data no formato DD/MM."
@@ -283,6 +293,7 @@ def chat_endpoint():
     response = Markup(response)
     
     return jsonify({"response": str(response)})
+
 
 @app.route('/reiniciar_agente', methods=['POST'])
 def reiniciar_agente():
