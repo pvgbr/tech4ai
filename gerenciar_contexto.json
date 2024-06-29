@@ -5,10 +5,10 @@
     },
     {
         "role": "user",
-        "content": "Estou bem também!"
+        "content": "Gostaria de saber sobre o circulo de tecnologia"
     },
     {
         "role": "system",
-        "content": "Entendi! Você está se dirigindo a uma conversa informal e não tem relação com a empresa Tech4humans. Se você precisar de ajuda ou tiver alguma dúvida, estou aqui para ajudar."
+        "content": "De acordo com as informações fornecidas, o círculo de Tecnologia da Tech4humans é composto por cinco times:\n\n1. **BI (Business Intelligence)**: Responsável pela gestão analítica e de bancos de dados da empresa. Desenvolvem e gerenciam consultas personalizadas e relatórios para a empresa.\n\n2. **IAG (Innovation and Architecture Group)**: É a força motriz para a incorporação de novas tecnologias em toda a empresa. Facilitam a adoção de ferramentas tecnológicas avançadas, impulsionando o aprendizado e o crescimento.\n\n3. **Desenvolvimento de Produtos**: É fundamental para assegurar a excelência, segurança e eficácia dos produtos da empresa, como Orion, Pulsar e Quantum. O time de produtos trabalha em estreita colaboração com os clientes para entender suas necessidades e desenvolver soluções personalizadas.\n\n4. **Automação de Processos**: Responsável por automatizar e otimizar processos, visando à eficiência e qualidade. Trabalham diretamente com os clientes para entender suas necessidades e desenvolver soluções personalizadas.\n\n5. **Governança de TI e Segurança da Informação**: Busca a melhoria contínua dos processos tecnológicos e operacionais. São responsáveis por planejar, atualizar e otimizar os processos de integração contínua e entrega contínua.\n\nEsses times trabalham juntos para garantir que a Tecnologia seja um motor de crescimento e inovação para a Tech4humans."
     }
 ]

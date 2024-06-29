@@ -31,7 +31,24 @@ function addMessageToChat(role, message) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-document.getElementById('user-input').addEventListener('keydown', function(event) {
+function displayWelcomeMessage() {
+    const chatMessages = document.getElementById('chat-messages');
+    const botMessage = `
+        <div class="bot-message">
+            <p>Olá! Seja bem-vindo(a) à Tech4humans!<br>
+            Sou a Tech4AI e estou aqui para te ajudar com sua adaptação na empresa.<br>
+            Abaixo estão as funcionalidades que posso oferecer:<br>
+            - Esclarecer dúvidas sobre a empresa<br>
+            - Agendar sua reunião de boas-vindas<br>
+            - Fornecer tutoriais das plataformas que usamos internamente<br><br>
+            Como posso ajudar você hoje?</p>
+        </div>
+    `;
+    chatMessages.innerHTML += botMessage;
+}
+window.onload = displayWelcomeMessage;
+
+document.getElementById('user-input').addEventListener('keypress', function(event) {
   if (event.key === 'Enter') {
     sendMessage();
   }

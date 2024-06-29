@@ -139,6 +139,7 @@ def serve_static(path):
 def chat_endpoint():
     user_message = request.json.get('message')
     historico_mensagens = carregar_historico()
+    
     historico_mensagens.append({"role": "user", "content": user_message})
 
     response = ""
@@ -183,7 +184,7 @@ def chat_endpoint():
     # Substituir **texto** por <b>texto</b>
     response = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', response)
     
-    # Substituir *texto* por <b>texto</b> (para suportar a formatação original)
+    # Substituir *texto* por <b>\1</b> (para suportar a formatação original)
     response = re.sub(r'\*(.*?)\*', r'<b>\1</b>', response)
 
     response = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', response)
