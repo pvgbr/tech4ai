@@ -2,14 +2,16 @@ import json
 import datetime
 from groq import Groq
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
-from flask import Flask, request, jsonify, send_from_directory, session
+from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template
 from markupsafe import escape, Markup
 import re
+import os
+import pickle
 
-app = Flask(__name__, static_folder='web')
+app = Flask(__name__, static_folder='web', template_folder='web')
 app.secret_key = 'tech4ai'
 
 client = Groq(api_key="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")
@@ -59,18 +61,93 @@ def resumir_dados(dados):
 
 resumo_base_de_dados = resumir_dados(base_de_dados)
 
-def agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao):
-    # Config Google Calendar
-    SCOPES = ['https://www.googleapis.com/auth/calendar']
-    creds = None
+# Configurações do OAuth 2.0
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+CLIENT_SECRETS_FILE = "credentials.json"
+SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/userinfo.profile']
 
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
+# Limpar o histórico ao iniciar o servidor
+def limpar_historico():
+    with open('gerenciar_contexto.json', 'w') as f:
+        json.dump([], f, ensure_ascii=False, indent=4)
+
+limpar_historico()
+
+@app.route('/login')
+def login():
+    flow = Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE,
+        scopes=SCOPES,
+        redirect_uri=url_for('oauth2callback', _external=True)
+    )
+    authorization_url, state = flow.authorization_url(
+        access_type='offline',
+        include_granted_scopes='true'
+    )
+    session['state'] = state
+    return redirect(authorization_url)
+
+@app.route('/oauth2callback')
+def oauth2callback():
+    state = session['state']
+    flow = Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE,
+        scopes=SCOPES,
+        state=state,
+        redirect_uri=url_for('oauth2callback', _external=True)
+    )
+    flow.fetch_token(authorization_response=request.url)
+
+    credentials = flow.credentials
+    session['credentials'] = credentials_to_dict(credentials)
+
+    # Obter informações do perfil do usuário
+    people_service = build('people', 'v1', credentials=credentials)
+    profile = people_service.people().get(resourceName='people/me', personFields='names').execute()
+    nome_usuario = profile.get('names', [])[0].get('displayName')
+    session['nome_usuario'] = nome_usuario
+
+    return redirect(url_for('index'))
+
+def credentials_to_dict(credentials):
+    return {
+        'token': credentials.token,
+        'refresh_token': credentials.refresh_token,
+        'token_uri': credentials.token_uri,
+        'client_id': credentials.client_id,
+        'client_secret': credentials.client_secret,
+        'scopes': credentials.scopes
+    }
+
+@app.route('/')
+def index():
+    if 'credentials' not in session:
+        return redirect(url_for('login'))  # Redireciona para a tela de login
+    nome_usuario = session.get('nome_usuario', 'Usuário')
+    return render_template('index.html', nome_usuario=nome_usuario)
+
+def get_credentials():
+    if 'credentials' not in session:
+        return None
+    credentials = Credentials(**session['credentials'])
+    if credentials.expired and credentials.refresh_token:
+        credentials.refresh(Request())
+        session['credentials'] = credentials_to_dict(credentials)
+    return credentials
+
+def agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao):
+    # Verificar se a data está no formato correto
+    if not re.match(r'^\d{2}/\d{2}$', data_reuniao):
+        return "Data inválida. Por favor, forneça a data no formato DD/MM."
+    
+    # Verificar se a hora está no formato correto
+    if not re.match(r'^\d{2}:\d{2}$', hora_reuniao):
+        return "Hora inválida. Por favor, forneça a hora no formato HH:MM."
+
+    creds = get_credentials()
+    if not creds:
+        return redirect(url_for('login'))
+
     service = build('calendar', 'v3', credentials=creds)
 
     # Converter a data para (AAAA-MM-DD)
@@ -86,7 +163,7 @@ def agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao):
     fim = fim_datetime.isoformat()
     
     evento = {
-        'summary': 'Reunião de Boas-Vindas',
+        'summary': f'Reunião de Boas-Vindas com {session["nome_usuario"]}',
         'description': 'Bem-vindo à Tech4humans! Esta é uma reunião para conhecê-lo melhor e apresentar nossa equipe.',
         'start': {
             'dateTime': inicio,
@@ -101,12 +178,11 @@ def agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao):
     return evento.get('htmlLink')
 
 def carregar_historico():
-    return [
-        {
-            "role": "system",
-            "content": f"Contexto da empresa: {json.dumps(resumo_base_de_dados)}"
-        }
-    ]
+    try:
+        with open('gerenciar_contexto.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
 
 def salvar_historico(historico):
     with open('gerenciar_contexto.json', 'w') as f:
@@ -127,13 +203,22 @@ def salvar_reunioes(reunioes):
     with open('reunioes_agendadas.json', 'w') as f:
         json.dump(reunioes, f, ensure_ascii=False, indent=4)
 
-@app.route('/')
-def serve_index():
-    return send_from_directory(app.static_folder, 'index.html')
-
 @app.route('/<path:path>')
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
+
+def truncar_historico(historico, max_tokens=2048):
+    total_tokens = 0
+    truncado = []
+    
+    for mensagem in reversed(historico):
+        mensagem_tokens = len(mensagem['content'].split())
+        if total_tokens + mensagem_tokens > max_tokens:
+            break
+        truncado.insert(0, mensagem)
+        total_tokens += mensagem_tokens
+    
+    return truncado
 
 @app.route('/chat', methods=['POST'])
 def chat_endpoint():
@@ -142,19 +227,35 @@ def chat_endpoint():
     
     historico_mensagens.append({"role": "user", "content": user_message})
 
+    # Adicionar informações da empresa ao histórico de mensagens
+    historico_mensagens.append({"role": "system", "content": json.dumps(resumo_base_de_dados)})
+
+    # Truncar o histórico de mensagens para evitar limite de tokens
+    historico_mensagens = truncar_historico(historico_mensagens)
+
     response = ""
     
     if 'agendar_reuniao' in session:
         if 'data_reuniao' not in session:
-            session['data_reuniao'] = user_message
-            response = "Por favor, forneça a hora da reunião (HH:MM)."
+            if not re.match(r'^\d{2}/\d{2}$', user_message):
+                response = "Data inválida. Por favor, forneça a data no formato DD/MM."
+            else:
+                session['data_reuniao'] = user_message
+                response = "Por favor, forneça a hora da reunião (HH:MM)."
         elif 'hora_reuniao' not in session:
-            session['hora_reuniao'] = user_message
-            link_reuniao = agendar_reuniao_boas_vindas(session['data_reuniao'], session['hora_reuniao'])
-            response = f"Reunião agendada com sucesso! Acesse o Google Calendar para mais informações: {link_reuniao}"
-            session.pop('agendar_reuniao')
-            session.pop('data_reuniao')
-            session.pop('hora_reuniao')
+            if not re.match(r'^\d{2}:\d{2}$', user_message):
+                response = "Hora inválida. Por favor, forneça a hora no formato HH:MM."
+            else:
+                session['hora_reuniao'] = user_message
+                link_reuniao = agendar_reuniao_boas_vindas(session['data_reuniao'], session['hora_reuniao'])
+                if "Data inválida" in link_reuniao or "Hora inválida" in link_reuniao:
+                    response = link_reuniao
+                    session.pop('hora_reuniao')
+                else:
+                    response = f"Reunião agendada com sucesso! Acesse o Google Calendar para mais informações: {link_reuniao}"
+                    session.pop('agendar_reuniao')
+                    session.pop('data_reuniao')
+                    session.pop('hora_reuniao')
     else:
         if any(keyword in user_message.lower() for keyword in ["agendar reunião", "agendar reuniao", "marcar reunião", "marcar reuniao", "reunião boas-vindas", "reunião boas vindas", "gostaria de agendar", "gostaria de marcar", "agendar uma reunião", "marcar uma reunião"]):
             session['agendar_reuniao'] = True
@@ -164,7 +265,7 @@ def chat_endpoint():
                 model="llama3-70b-8192",
                 messages=historico_mensagens,
                 temperature=1,
-                max_tokens=512,
+                max_tokens=1024,
                 top_p=1,
                 stream=True,
                 stop=None,
@@ -175,23 +276,19 @@ def chat_endpoint():
     historico_mensagens.append({"role": "system", "content": response})
     salvar_historico(historico_mensagens)
     
-    # Escapar o conteúdo HTML
     response = escape(response)
-    
-    # Substituir as quebras de linha
     response = response.replace('\n', Markup('<br>'))
-    
-    # Substituir **texto** por <b>texto</b>
     response = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', response)
-    
-    # Substituir *texto* por <b>\1</b> (para suportar a formatação original)
-    response = re.sub(r'\*(.*?)\*', r'<b>\1</b>', response)
-
     response = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', response)
-    
     response = Markup(response)
     
     return jsonify({"response": str(response)})
+
+@app.route('/reiniciar_agente', methods=['POST'])
+def reiniciar_agente():
+    limpar_historico()
+    session.clear()
+    return jsonify({"message": "Agente reiniciado com sucesso."})
 
 if __name__ == "__main__":
     app.run(debug=True)

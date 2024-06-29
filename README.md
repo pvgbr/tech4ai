@@ -21,6 +21,8 @@ A instalação do projeto é simples e rápida. Siga os passos abaixo:
 
 ## Uso
 
-Depois de instalar as dependências, você pode começar a usar o agente de IA. Para isso, basta executar o script `run.bat`
+Depois de instalar as dependências, você pode começar a usar o agente de IA. Para isso, execute script `run.bat`
+Abra seu navegador e acesse http://localhost:5000/
+Faça o login com sua conta do Google e marque a opção de permissão do calendário para o agente conseguir agendar sua reunião.
 
 O agente de IA estará pronto para interagir e solucionar suas dúvidas relacionadas à Tech4Humans!
