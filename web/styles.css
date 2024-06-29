@@ -16,8 +16,8 @@ body {
 }
 
 .chat-container {
-  width: 600px; /* Largura ajustada para 600px */
-  height: 85vh; /* Altura ajustada para 85% da altura da viewport */
+  width: 600px;
+  height: 85vh;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -52,7 +52,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-right: 10px;
-  font-size: 14px; /* Tamanho de fonte ajustado para 14px */
+  font-size: 14px;
 }
 
 .chat-input button {
@@ -62,7 +62,7 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px; /* Tamanho de fonte ajustado para 14px */
+  font-size: 14px;
 }
 
 .chat-input button:hover {
@@ -75,7 +75,7 @@ body {
   border-radius: 4px;
   max-width: 80%;
   word-wrap: break-word;
-  font-size: 14px; /* Tamanho de fonte ajustado para 14px */
+  font-size: 14px;
 }
 
 .message.user {
@@ -99,5 +99,5 @@ body {
   border-radius: 10px;
   padding: 10px;
   margin: 10px 0;
-  font-size: 14px; /* Tamanho de fonte ajustado para 14px */
+  font-size: 14px;
 }
