@@ -15,15 +15,37 @@
             height: 100vh;
             margin: 0;
         }
+        .chat-container {
+            position: relative;
+        }
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #logout-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        #logout-button img {
+            width: 24px;
+            height: 24px;
+        }
     </style>
     <script>
         var nomeUsuario = "{{ nome_usuario }}";
     </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Tech4.AI</h2>
+            <h2><img src="images/tech-icon.png" alt="Tech4.AI"></h2> 
+            <button id="logout-button">
+                <img src="images/power-icon.png" alt="Desconectar">
+            </button>
         </div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-input">
@@ -34,4 +56,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

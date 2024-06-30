@@ -2,7 +2,6 @@ import json
 import datetime
 import re
 import os
-import spacy
 from groq import Groq
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import Flow
@@ -211,7 +210,15 @@ def truncar_historico(historico, max_tokens=1024):
     total_tokens = 0
     truncado = []
     
-    for mensagem in reversed(historico):
+    # Garantir que pelo menos as 3 últimas mensagens sejam incluídas
+    ultimas_mensagens = historico[-6:] 
+    for mensagem in reversed(ultimas_mensagens):
+        mensagem_tokens = len(mensagem['content'].split())
+        truncado.insert(0, mensagem)
+        total_tokens += mensagem_tokens
+
+    # Adicionar mensagens anteriores até atingir o limite de tokens
+    for mensagem in reversed(historico[:-6]):
         mensagem_tokens = len(mensagem['content'].split())
         if total_tokens + mensagem_tokens > max_tokens:
             break
@@ -220,11 +227,17 @@ def truncar_historico(historico, max_tokens=1024):
     
     return truncado
 
-nlp = spacy.load("pt_core_news_sm")
 @app.route('/chat', methods=['POST'])
 def chat_endpoint():
     user_message = request.json.get('message')
     historico_mensagens = carregar_historico()
+    
+    # Adicionar contexto ao agente
+    contexto_agente = {
+        "role": "system",
+        "content": "Você é um assistente virtual para novos funcionários da Tech4humans. Sua função é ajudar os novos funcionários com informações sobre a empresa, agendar reuniões de boas-vindas, fornecer tutorias de plataformas, como discord, vscode, jira e github, e responder a perguntas de forma educada e profissional. Não forneça informações pessoais, evite linguagem ofensiva e não fale sobre outras empresas"
+    }
+    historico_mensagens.insert(0, contexto_agente)
     
     historico_mensagens.append({"role": "user", "content": user_message})
     historico_mensagens.append({"role": "system", "content": json.dumps(resumo_base_de_dados)})
@@ -232,14 +245,9 @@ def chat_endpoint():
 
     response = ""
 
-    # Processar a mensagem do usuário
-    doc = nlp(user_message)
-    empresas_mencionadas = [ent.text for ent in doc.ents if ent.label_ == "ORG"]
 
     # Verificações de segurança e conteúdo
-    if empresas_mencionadas:
-        response = "Desculpe, eu só posso fornecer informações sobre a Tech4Humans."
-    elif re.search(r'\b(discurso de ódio|insultos|linguagem ofensiva)\b', user_message, re.IGNORECASE):
+    if re.search(r'\b(discurso de ódio|insultos|linguagem ofensiva)\b', user_message, re.IGNORECASE):
         response = "Desculpe, não tolero discurso de ódio ou linguagem ofensiva."
     elif re.search(r'\b(informação pessoal|dados pessoais)\b', user_message, re.IGNORECASE):
         response = "Desculpe, não posso fornecer informações pessoais."
@@ -300,6 +308,11 @@ def reiniciar_agente():
     limpar_historico()
     session.clear()
     return jsonify({"message": "Agente reiniciado com sucesso."})
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return jsonify(success=True)
 
 if __name__ == "__main__":
     app.run(debug=True)

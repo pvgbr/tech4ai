@@ -82,7 +82,8 @@ body {
 .message.user {
   background-color: #dcf8c6;
   align-self: flex-end;
-  text-align: right;
+  text-align: left;
+  display: right;
   margin-left: auto; /* Adicionado para alinhar à direita */
 }
 
@@ -102,4 +103,12 @@ body {
   padding: 10px;
   margin: 10px 0;
   font-size: 14px;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.8em;
+  color: gray;
+  text-align: right;
+  margin-top: 5px;
 }
