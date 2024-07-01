@@ -199,6 +199,14 @@ def salvar_historico(historico):
     with open('gerenciar_contexto.json', 'w') as f:
         json.dump(historico, f, ensure_ascii=False, indent=4)
 
+@app.route('/gerenciar_contexto.json', methods=['POST'])
+def gerenciar_contexto():
+    try:
+        limpar_historico()
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 def carregar_reunioes():
     try:
         with open('reunioes_agendadas.json', 'r') as f:

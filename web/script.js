@@ -8,7 +8,7 @@ function sendMessage() {
 
   // Adiciona mensagem de "digitando..."
   const typingMessage = addMessageToChat("tech4ai", "• • •");
-  
+
   fetch('/chat', {
     method: 'POST',
     headers: {
@@ -26,21 +26,13 @@ function sendMessage() {
       console.error('Error:', error);
       typingMessage.remove(); // Remove a mensagem de "digitando..." em caso de erro
       addMessageToChat("tech4ai", "Desculpe, não consegui processar sua informação...");
-      fetch('/gerenciar_contexto.json', {
+      fetch('../gerenciar_contexto.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify([])
-      }).then(response => {
-        if (response.ok) {
-          console.log('Contexto reiniciado.');
-        } else {
-          console.error('Erro ao reiniciar contexto.');
-        }
-      }).catch(error => {
-        console.error('Erro ao reiniciar contexto.', error);
-      });
+      })
     });
 }
 
@@ -48,25 +40,25 @@ function addMessageToChat(role, message) {
   const chatMessages = document.getElementById('chat-messages');
   const messageElement = document.createElement('div');
   messageElement.classList.add('message', role);
-  
+
   // Obtém o horário atual sem os segundos
   const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  
+
   // Adiciona a mensagem e o horário
   messageElement.innerHTML = `
     <p>${message}</p>
     <span class="timestamp">${timestamp}</span>
   `;
-  
+
   chatMessages.appendChild(messageElement);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   return messageElement; // Retorna o elemento da mensagem
 }
 
 function displayWelcomeMessage() {
-    const chatMessages = document.getElementById('chat-messages');
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const botMessage = `
+  const chatMessages = document.getElementById('chat-messages');
+  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const botMessage = `
         <div class="bot-message">
             <p>Olá ${nomeUsuario}, seja bem-vindo(a) à Tech4Humans!<br><br>
             Sou a Tech4.AI e estou aqui para te ajudar com sua adaptação na empresa.<br>
@@ -78,7 +70,7 @@ function displayWelcomeMessage() {
             <span class="timestamp">${timestamp}</span>
         </div>
     `;
-    chatMessages.innerHTML += botMessage;
+  chatMessages.innerHTML += botMessage;
 }
 
 function signOut() {
@@ -121,12 +113,12 @@ function loadClientIdAndInitAuth() {
     });
 }
 
-window.onload = function() {
+window.onload = function () {
   displayWelcomeMessage();
   loadClientIdAndInitAuth();
 };
 
-document.getElementById('user-input').addEventListener('keypress', function(event) {
+document.getElementById('user-input').addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     sendMessage();
   }
