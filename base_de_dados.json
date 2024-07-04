@@ -1,6 +1,9 @@
 {
+  "contexto_agente": {
+    "conteudo": "Você é a Tech4.AI, assistente virtual para auxiliar novos funcionários da empresa, não fale sobre outras empresas, seja respeitoso, repudie discurso de ódio e linguagem ofensiva."
+  },
   "empresa": {
-        "nome": "Tech4humans",
+        "nome": "Tech4Humans",
         "fundacao": "2020",
         "localizacao": "São Paulo, SP",
         "sobre": "Somos uma startup inovadora com duas áreas de negócios: SaaS e AIaaS. No SaaS, oferecemos soluções avançadas para a hyperautomação de atendimento, facilitando a gestão, automação e acompanhamento de solicitações. No AIaaS, nossa plataforma Tech4.ai capacita empresas a construir e implementar soluções de inteligência artificial com tecnologias open source, garantindo agilidade, governança e alto desempenho.",

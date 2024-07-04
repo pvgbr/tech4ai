@@ -24,6 +24,9 @@ with open('base_de_dados.json', 'r') as f:
 # Função para resumir os dados da base de dados (excesso de tokens)
 def resumir_dados(dados):
     resumo = {
+        "contexto_agente": {
+            "conteudo": dados["contexto_agente"].get("conteudo"),
+        },
         "empresa": {
             "nome": dados["empresa"].get("nome"),
             "fundacao": dados["empresa"].get("fundacao"),
@@ -255,7 +258,7 @@ def chat_endpoint():
     # Adicionar contexto ao agente
     contexto_agente = {
         "role": "system",
-        "content": "Você é um assistente virtual para novos funcionários da Tech4humans. Sua função é ajudar os novos funcionários com informações sobre a empresa, agendar reuniões de boas-vindas, fornecer tutorias de plataformas, como discord, vscode, jira e github, e responder a perguntas de forma educada e profissional. Não forneça informações pessoais, evite linguagem ofensiva e não fale sobre outras empresas"
+        "content": "Você é um assistente virtual para novos funcionários da Tech4Humans. Sua função é ajudar os novos funcionários com informações sobre a empresa, agendar reuniões de boas-vindas, fornecer tutorias de plataformas, como discord, vscode, jira e github, e responder a perguntas de forma educada e profissional. Não forneça informações pessoais, evite linguagem ofensiva e não fale sobre outras empresas"
     }
     historico_mensagens.insert(0, contexto_agente)
     

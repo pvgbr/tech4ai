@@ -65,7 +65,7 @@ function displayWelcomeMessage() {
             Abaixo estão as funcionalidades que posso oferecer:<br>
             - Esclarecer dúvidas sobre a empresa;<br>
             - Agendar sua reunião de boas-vindas;<br>
-            - Fornecer tutoriais das plataformas internas, como Github, Vscode, Jira e Discord.<br><br>
+            - Fornecer tutoriais das ferramentas internas, como Github, Vscode, Jira e Discord.<br><br>
             Como posso ajudar você hoje?</p>
             <span class="timestamp">${timestamp}</span>
         </div>
