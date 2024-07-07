@@ -17,7 +17,7 @@ app.secret_key = 'tech4ai'  # Chave secreta para sessões
 # Inicializa o cliente Groq com a chave da API
 client = Groq(api_key="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")
 
-# Carrega a base de dados a partir de um arquivo JSON
+# Carrega a base de dados
 with open('base_de_dados.json', 'r') as f:
     base_de_dados = json.load(f)
 
@@ -80,7 +80,7 @@ def limpar_historico():
 
 limpar_historico()
 
-# Rota para login
+# login
 @app.route('/login')
 def login():
     flow = Flow.from_client_secrets_file(
@@ -95,7 +95,7 @@ def login():
     session['state'] = state
     return redirect(authorization_url)
 
-# Rota para callback do OAuth2
+# callback do OAuth2
 @app.route('/oauth2callback')
 def oauth2callback():
     state = session['state']
@@ -129,7 +129,7 @@ def credentials_to_dict(credentials):
         'scopes': credentials.scopes
     }
 
-# Rota principal
+# Principal
 @app.route('/')
 def index():
     if 'credentials' not in session:
@@ -137,7 +137,7 @@ def index():
     nome_usuario = session.get('nome_usuario', 'Usuário')
     return render_template('index.html', nome_usuario=nome_usuario)
 
-# Obtém as credenciais do usuário
+# Obter as credenciais do usuário
 def get_credentials():
     if 'credentials' not in session:
         return None
@@ -337,7 +337,7 @@ def logout():
     session.clear()
     return jsonify(success=True)
 
-# Rota para agendar a reunião
+# Agendar a reunião
 @app.route('/agendar', methods=['POST'])
 def agendar():
     data = request.json
@@ -345,7 +345,6 @@ def agendar():
     hora_reuniao = data.get('hora')
     return agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao)
 
-# Rota para servir arquivos estáticos
 @app.route('/web/<path:path>')
 def send_web(path):
     return send_from_directory('web', path)
