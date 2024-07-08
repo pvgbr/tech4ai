@@ -17,7 +17,7 @@ app.secret_key = 'tech4ai'  # Chave secreta para sessões
 # Inicializa o cliente Groq com a chave da API
 client = Groq(api_key="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")
 
-# Carrega a base de dados
+# Carrega a base de dados a partir de um arquivo JSON
 with open('base_de_dados.json', 'r') as f:
     base_de_dados = json.load(f)
 
@@ -80,7 +80,7 @@ def limpar_historico():
 
 limpar_historico()
 
-# Rota de login
+# Login
 @app.route('/login')
 def login():
     flow = Flow.from_client_secrets_file(
@@ -129,7 +129,7 @@ def credentials_to_dict(credentials):
         'scopes': credentials.scopes
     }
 
-# Página principal
+# Pagina principal
 @app.route('/')
 def index():
     if 'credentials' not in session:
@@ -137,7 +137,7 @@ def index():
     nome_usuario = session.get('nome_usuario', 'Usuário')
     return render_template('index.html', nome_usuario=nome_usuario)
 
-# Obter as credenciais do usuário
+# Credenciais do usuário
 def get_credentials():
     if 'credentials' not in session:
         return None
@@ -247,40 +247,106 @@ def truncar_historico(historico, max_tokens=1024):
             break
         truncado.insert(0, mensagem)
         total_tokens += mensagem_tokens
-
+    
     return truncado
 
-def processar_mensagem_pergunta(mensagem_pergunta, historico):
-    contexto_agente = resumo_base_de_dados["contexto_agente"]["conteudo"]
-    dados_historico = [{"role": "system", "content": contexto_agente}] + historico + [{"role": "user", "content": mensagem_pergunta}]
-    resposta = client.completions.create(messages=dados_historico, max_tokens=1024)
-    return resposta.choices[0].message['content']
+@app.route('/chat', methods=['POST'])
+def chat_endpoint():
+    user_message = request.json.get('message')
+    historico_mensagens = carregar_historico()
+    
+    # Adicionar contexto ao agente
+    contexto_agente = {
+        "role": "system",
+        "content": "Você é um assistente virtual para novos funcionários da Tech4Humans. Sua função é ajudar os novos funcionários com informações sobre a empresa, agendar reuniões de boas-vindas, fornecer tutorias de plataformas, como discord, vscode, jira e github, e responder a perguntas de forma educada e profissional. Não forneça informações pessoais, evite linguagem ofensiva e não fale sobre outras empresas"
+    }
+    historico_mensagens.insert(0, contexto_agente)
+    
+    historico_mensagens.append({"role": "user", "content": user_message})
+    historico_mensagens.append({"role": "system", "content": json.dumps(resumo_base_de_dados)})
+    historico_mensagens = truncar_historico(historico_mensagens)
 
-@app.route('/enviar_mensagem', methods=['POST'])
-def enviar_mensagem():
-    try:
-        dados = request.json
-        mensagem_pergunta = dados.get('mensagem_pergunta')
-        
-        if not mensagem_pergunta:
-            return jsonify({"status": "error", "message": "A mensagem_pergunta é obrigatória."}), 400
+    response = ""
 
-        historico = carregar_historico()
-        historico_truncado = truncar_historico(historico)
 
-        resposta = processar_mensagem_pergunta(mensagem_pergunta, historico_truncado)
+    # Verificações de segurança e conteúdo
+    if re.search(r'\b(discurso de ódio|insultos|linguagem ofensiva)\b', user_message, re.IGNORECASE):
+        response = "Desculpe, não tolero discurso de ódio ou linguagem ofensiva."
+    elif re.search(r'\b(informação pessoal|dados pessoais)\b', user_message, re.IGNORECASE):
+        response = "Desculpe, não posso fornecer informações pessoais."
+    elif re.search(r'[\{\}\[\]]', user_message):  # Verificação para injeções
+        response = "Desculpe, a requisição contém caracteres não permitidos."
+    elif 'agendar_reuniao' in session:
+        if 'data_reuniao' not in session:
+            if not re.match(r'^\d{2}/\d{2}$', user_message):
+                response = "Data inválida. Por favor, forneça a data no formato DD/MM."
+            else:
+                session['data_reuniao'] = user_message
+                response = "Por favor, forneça a hora da reunião (HH:MM)."
+        elif 'hora_reuniao' not in session:
+            if not re.match(r'^\d{2}:\d{2}$', user_message):
+                response = "Hora inválida. Por favor, forneça a hora no formato HH:MM."
+            else:
+                session['hora_reuniao'] = user_message
+                link_reuniao = agendar_reuniao_boas_vindas(session['data_reuniao'], session['hora_reuniao'])
+                if "Data inválida" in link_reuniao or "Hora inválida" in link_reuniao:
+                    response = link_reuniao
+                    session.pop('hora_reuniao')
+                else:
+                    response = f"Reunião agendada com sucesso! Acesse o Google Calendar para mais informações: {link_reuniao}"
+                    session.pop('agendar_reuniao')
+                    session.pop('data_reuniao')
+                    session.pop('hora_reuniao')
+    else:
+        if any(keyword in user_message.lower() for keyword in ["agendar reunião", "agendar reuniao", "marcar reunião", "marcar reuniao", "reunião boas-vindas", "reunião boas vindas", "gostaria de agendar", "gostaria de marcar", "agendar uma reunião", "marcar uma reunião"]):
+            session['agendar_reuniao'] = True
+            response = "Por favor, forneça a data da reunião (DD/MM)."
+        else:
+            completion = client.chat.completions.create(
+                model="llama3-70b-8192",
+                messages=historico_mensagens,
+                temperature=1,
+                max_tokens=1024,
+                top_p=1,
+                stream=True,
+                stop=None,
+            )
+            for chunk in completion:
+                response += chunk.choices[0].delta.content or ""
 
-        # Adicionar a nova mensagem e a resposta ao histórico
-        historico.extend([
-            {"role": "user", "content": mensagem_pergunta},
-            {"role": "assistant", "content": resposta}
-        ])
-        salvar_historico(historico)
-        
-        return jsonify({"status": "success", "resposta": resposta}), 200
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+    historico_mensagens.append({"role": "system", "content": response})
+    salvar_historico(historico_mensagens)
+    
+    response = escape(response)
+    response = response.replace('\n', Markup('<br>'))
+    response = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', response)
+    response = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', response)
+    response = Markup(response)
+    
+    return jsonify({"response": str(response)})
 
-# Inicializar o servidor
-if __name__ == '__main__':
+
+@app.route('/reiniciar_agente', methods=['POST'])
+def reiniciar_agente():
+    limpar_historico()
+    session.clear()
+    return jsonify({"message": "Agente reiniciado com sucesso."})
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return jsonify(success=True)
+
+@app.route('/agendar', methods=['POST'])
+def agendar():
+    data = request.json
+    data_reuniao = data.get('data')
+    hora_reuniao = data.get('hora')
+    return agendar_reuniao_boas_vindas(data_reuniao, hora_reuniao)
+
+@app.route('/web/<path:path>')
+def send_web(path):
+    return send_from_directory('web', path)
+
+if __name__ == "__main__":
     app.run(debug=True)
