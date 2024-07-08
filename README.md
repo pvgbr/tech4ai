@@ -17,7 +17,7 @@ A instalação do projeto é simples e rápida. Siga os passos abaixo:
 
 1. Clone este repositório para a sua máquina local
 2. Navegue até o diretório do projeto
-3. Execute o script `install.bat` para instalar todas as dependências necessárias
+3. Execute o script `install.bat` para instalar todas as dependências necessárias (Caso o sistema operacional recuse em abrir o script, clique em mais informações e selecione "Executar mesmoa assim")
 
 ## Uso
 
